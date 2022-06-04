@@ -2,11 +2,11 @@
 
 using namespace std;
 
-void swap(int a, int temp, int b)
+void swap(int *a, int *b)
 {
-    temp=a;
-    a=b;
-    b=temp;
+    int temp= *a;
+    *a=*b;
+    *b=temp;
 }
 
 void heapmin(int arr[], int n, int i)
@@ -14,10 +14,10 @@ void heapmin(int arr[], int n, int i)
     int min = i;
     int a = 2*i+1;
     int b = 2*i+2;
-    if (a<n && arr[a]>arr[min])
-        min = a;
-    if (b<n && arr[b]>arr[min])
-        min = b;;
+    if (a<n && arr[a]<arr[min])
+        min = a; 
+    if (b<n && arr[b]<arr[min])
+        min = b;
     if (min != i){
         swap(arr[i], arr[min]);
         heapmin(arr, n, min);
@@ -26,16 +26,24 @@ void heapmin(int arr[], int n, int i)
 
 void heapsort(int arr[], int n)
 {
-    for (int i= n/2 - 1; i>=0; i--){
-        heapmin(arr, n, i);
-    }
-    for (int i= n-1; i>0; i--){
-        swap(arr[0], arr[i]);
+    // for  (n; n>0; n--){
+        for (int i= n/2 - 1; i>=0; i--)
+            heapmin(arr, n, i);
+    // }
+    for (int i= n-1; i>=0; i--){
+        swap(arr[0], arr[i]);  
+        heapmin(arr, i, 0);
         for (int i=0; i < n; i++){
             cout << arr[i] <<" ";
-        heapmin(arr, i, 0);
         }
         cout << "\n";
+    }
+}
+
+void swapheap(int arr[], int n){
+    for (int i = n-1;i>=0;i--){
+        for (int j = 0;j=i;j++)
+        swap(arr[j], arr[i]);
     }
 }
 
@@ -62,6 +70,7 @@ int main()
     addheapArray(arr,n);
     heapsort(arr, n);
     cout << "Vay day so sau khi sap xep la: \n";
+    swapheap(arr, n);
     printheapArray(arr, n);
     return 0;
 }
