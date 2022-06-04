@@ -14,9 +14,9 @@ void heapmin(int arr[], int n, int i)
     int min = i;
     int a = 2*i+1;
     int b = 2*i+2;
-    if (a<n && arr[a]<arr[min])
+    if (a<n && arr[a]>arr[min])
         min = a;
-    if (b<n && arr[b]<arr[min])
+    if (b<n && arr[b]>arr[min])
         min = b;;
     if (min != i){
         swap(arr[i], arr[min]);
